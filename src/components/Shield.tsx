@@ -1,43 +1,43 @@
-/**
- * Placeholder shield.
- *
- * This is a stand-in built from the brand palette so the app looks right
- * while we wait on files. Replace it with the official artwork: drop
- * `shield.svg` into /public/brand/ and swap this component for an <img>
- * pointing at it. Do the same for the app icons in /public/icons/.
- *
- * The real mark is the quartered shield with the cross; do not redraw it by
- * hand, use the file the school's brand package provides.
- */
-export function Shield({ className = 'h-10 w-auto' }: { className?: string }) {
+import Image from 'next/image';
+
+// The official graphic shield, extracted from the vector artwork in the 2024
+// brand guide. This replaces the hand-drawn placeholder.
+//
+// The shield is taller than it is wide (2466 x 2809, so 1.1391). Callers give
+// a width and the height follows, which keeps the proportions right wherever
+// it appears.
+
+const ASPECT = 1.1391;
+
+type ShieldProps = {
+  /** Rendered width in pixels. Height is derived from the artwork. */
+  size?: number;
+  className?: string;
+  /** Set on the one above the fold so it is not lazy-loaded. */
+  priority?: boolean;
+  /**
+   * Empty by default: the shield almost always sits beside the school name,
+   * so announcing it again is noise for a screen reader. Pass a label only
+   * where the shield stands alone as the link or heading.
+   */
+  alt?: string;
+};
+
+export default function Shield({
+  size = 32,
+  className,
+  priority = false,
+  alt = '',
+}: ShieldProps) {
   return (
-    <svg
-      viewBox="0 0 64 76"
+    <Image
+      src="/brand/providence-shield.png"
+      alt={alt}
+      width={size}
+      height={Math.round(size * ASPECT)}
       className={className}
-      role="img"
-      aria-label="Providence Academy"
-    >
-      <defs>
-        <clipPath id="shield-clip">
-          <path d="M2 2h60v38c0 18-13 29-30 34C15 69 2 58 2 40V2Z" />
-        </clipPath>
-      </defs>
-
-      <g clipPath="url(#shield-clip)">
-        <rect x="0" y="0" width="32" height="38" fill="#CB122D" />
-        <rect x="32" y="0" width="32" height="38" fill="#032341" />
-        <rect x="0" y="38" width="32" height="38" fill="#032341" />
-        <rect x="32" y="38" width="32" height="38" fill="#CB122D" />
-        <path d="M28 0h8v76h-8z" fill="#fff" />
-        <path d="M0 34h64v8H0z" fill="#fff" />
-      </g>
-
-      <path
-        d="M2 2h60v38c0 18-13 29-30 34C15 69 2 58 2 40V2Z"
-        fill="none"
-        stroke="#fff"
-        strokeWidth="3"
-      />
-    </svg>
+      priority={priority}
+      aria-hidden={alt === '' ? true : undefined}
+    />
   );
 }
