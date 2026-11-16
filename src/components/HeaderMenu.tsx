@@ -49,9 +49,14 @@ export function HeaderMenu({
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label="Account menu"
-        className="flex h-8 w-8 items-center justify-center rounded-full bg-white/15 text-xs font-semibold text-white ring-1 ring-white/25 hover:bg-white/25"
+        // The 44px tap-target rule in globals.css stretched a 32px circle
+        // into a tall pill. The button is now the full 44px target and the
+        // visible circle sits inside it.
+        className="group flex h-11 w-11 items-center justify-center rounded-full"
       >
-        {initials}
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/15 text-xs font-semibold text-white ring-1 ring-white/25 group-hover:bg-white/25">
+          {initials}
+        </span>
       </button>
 
       {open && (

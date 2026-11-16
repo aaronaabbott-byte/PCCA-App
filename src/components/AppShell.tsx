@@ -28,13 +28,13 @@ export function AppShell({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-dvh flex-col bg-gray-50">
+    <div data-app-shell className="flex min-h-dvh flex-col bg-gray-50">
       <header className="pad-safe-top sticky top-0 z-20 bg-navy text-white">
         <div className="mx-auto flex h-14 w-full max-w-3xl items-center gap-3 px-4">
           <Link href="/" className="flex min-w-0 items-center gap-2.5">
             <Shield className="h-8 w-auto" />
             <span className="truncate font-serif text-lg tracking-wide">
-              Providence
+              Providence Academy
             </span>
           </Link>
 
