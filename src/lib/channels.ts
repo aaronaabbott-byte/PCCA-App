@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
+import { getCurrentUser } from '@/lib/auth';
 import type { Channel, Division } from '@/lib/types';
 
 export interface MyChannel {
@@ -43,15 +44,29 @@ type ChannelRow = Pick<
  * channels: families were members and could post, but had no way to reach
  * them. Filtering belongs at the call site that actually wants one kind,
  * never in the shared loader.
+ *
+ * The user_id filter below is not redundant with row level security, which
+ * is what an earlier version of this assumed. memberships_read is
+ * `is_admin() or user_id = current_app_user_id()`, so a parent reads only
+ * their own rows and the unfiltered query happened to look correct. An
+ * administrator reads everyone's, so every channel came back once per
+ * member: Logic appeared three times, Grade 7 Parents twice. The bug was
+ * invisible while the database had a single user in it.
+ *
+ * Pass userId when the caller already has the user, to skip the lookup.
  */
-export async function getMyChannels(): Promise<MyChannel[]> {
+export async function getMyChannels(userId?: string): Promise<MyChannel[]> {
   const supabase = await createClient();
+
+  const id = userId ?? (await getCurrentUser())?.id;
+  if (!id) return [];
 
   const { data } = await supabase
     .from('memberships')
     .select(
       'can_post, notify, channels(id, slug, name, kind, division, grade, description, sort_order)',
-    );
+    )
+    .eq('user_id', id);
 
   return (data ?? [])
     .map((m) => {
