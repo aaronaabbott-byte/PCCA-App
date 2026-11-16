@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+/*
+ * Providence Academy brand guide, 2024.
+ *
+ * Primary:   Valor Red #CB122D, White, Midnight Navy #032341
+ * Secondary: Colonial Blue #003A70, Monument Gray #474747, Quil Gray #D3D1CC
+ *
+ * Type: Garamond for headings and titles, Open Sans for body and interface.
+ * The guide names Open Sans as the face for body copy and digital
+ * applications, which is the whole of this app.
+ */
+
+@theme {
+  --color-navy: #032341;
+  --color-red: #cb122d;
+  --color-colonial: #003a70;
+  --color-monument: #474747;
+  --color-quil: #d3d1cc;
+
+  --font-serif: var(--font-garamond), Garamond, "EB Garamond", Georgia, serif;
+  --font-sans: var(--font-open-sans), "Open Sans", system-ui, sans-serif;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #1c1c1c;
+}
+
+html {
+  /* Keeps the navy header flush under the notch on an installed iOS app. */
+  background-color: var(--color-navy);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  /* iOS rubber-band scroll should not reveal white behind a navy header. */
+  overscroll-behavior-y: none;
+}
+
+h1,
+h2,
+h3,
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+/* Respect the home-screen safe areas on an installed app. */
+.pad-safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+.pad-safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Tap targets on a phone should never be below 44px. */
+@media (pointer: coarse) {
+  button,
+  a[role="button"],
+  select {
+    min-height: 44px;
+  }
+}
