@@ -7,7 +7,8 @@ import type { MetadataRoute } from 'next';
 //
 // theme_color is Midnight Navy (#032341) and tints the status bar once the app
 // is installed to a home screen. background_color is the splash behind the
-// icon during launch, so it matches the icons' own white field.
+// icon during launch, and it matches the icons' navy field so the launch
+// reads as one surface rather than a navy tile on white.
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
@@ -19,7 +20,7 @@ export default function manifest(): MetadataRoute.Manifest {
     scope: '/',
     display: 'standalone',
     orientation: 'portrait',
-    background_color: '#FFFFFF',
+    background_color: '#032341',
     theme_color: '#032341',
     icons: [
       {
