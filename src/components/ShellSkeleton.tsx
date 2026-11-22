@@ -23,7 +23,7 @@ export function ShellSkeleton() {
           <div className="flex min-w-0 items-center gap-2.5">
             <Shield className="h-8 w-auto" />
             <span className="truncate font-serif text-lg tracking-wide">
-              Providence
+              Providence Academy
             </span>
           </div>
           <div className="ml-auto flex shrink-0 items-center gap-2">
@@ -77,13 +77,13 @@ export function ShellSkeleton() {
         </div>
       </main>
 
-      <nav className="pad-safe-bottom sticky bottom-0 border-t border-gray-200 bg-white">
+      <nav className="pad-safe-bottom sticky bottom-0 bg-navy">
         <div className="mx-auto flex w-full max-w-3xl">
           {['News', 'Channels', 'Calendar', 'Resources', 'Directory'].map(
             (label) => (
               <span
                 key={label}
-                className="flex-1 py-3 text-center text-xs font-medium text-navy/40 sm:text-sm"
+                className="flex-1 py-3 text-center text-xs font-semibold text-white/40 sm:text-sm"
               >
                 {label}
               </span>

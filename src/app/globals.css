@@ -33,26 +33,23 @@ html {
 }
 
 body {
-  background: var(--background);
+  /*
+   * Navy everywhere, on purpose.
+   *
+   * Since iOS 26.1 an installed iPhone app no longer draws behind the status
+   * bar or the home indicator, even with black-translucent and
+   * viewport-fit=cover. iOS paints both strips itself from the page
+   * background. A white body showed as a gray fade at the top and a white
+   * band at the bottom. With a navy body both strips are navy, and they meet
+   * the navy header, the navy tab bar and the navy sign-in screen.
+   *
+   * Page content never sits on the body directly: the app shell has its own
+   * light gray background.
+   */
+  background: var(--color-navy);
   color: var(--foreground);
   font-family: var(--font-sans);
-  /* iOS rubber-band scroll should not reveal white behind a navy header. */
   overscroll-behavior-y: none;
-}
-
-/*
- * Status bar color on an installed iPhone app.
- *
- * Since iOS 26.1 a home-screen app no longer draws behind the status bar,
- * even with black-translucent and viewport-fit=cover. iOS paints that strip
- * itself, sampled from the page background and blended into whatever sits
- * below it. With a white body that blend showed as a gray-to-navy fade above
- * the header. Making the body navy on app pages gives iOS one solid color to
- * sample. The shell's own wrapper keeps the light gray content background.
- * Sign-in and other pages without the shell keep the white body.
- */
-body:has([data-app-shell]) {
-  background: var(--color-navy);
 }
 
 h1,

@@ -1,24 +1,9 @@
 import Link from 'next/link';
 import { Shield } from '@/components/Shield';
 import { HeaderMenu } from '@/components/HeaderMenu';
+import { TabBar } from '@/components/TabBar';
 import { displayName } from '@/lib/auth';
 import type { AppUser } from '@/lib/types';
-
-// The tab bar is the app's navigation. "Home" was a label that said nothing,
-// and having both Home and News invited the question of which one had the
-// news. The root route is now the feed itself, so the first tab says what it
-// is, and Channels moved down here from the header.
-//
-// The tab label is "News" rather than "News Feed": at five tabs on a narrow
-// phone each one gets about 70px, and two words wrap. The page heading says
-// News Feed.
-const NAV = [
-  { href: '/', label: 'News' },
-  { href: '/channels', label: 'Channels' },
-  { href: '/calendar', label: 'Calendar' },
-  { href: '/resources', label: 'Resources' },
-  { href: '/directory', label: 'Directory' },
-];
 
 export function AppShell({
   user,
@@ -70,19 +55,7 @@ export function AppShell({
         {children}
       </main>
 
-      <nav className="pad-safe-bottom sticky bottom-0 border-t border-gray-200 bg-white">
-        <div className="mx-auto flex w-full max-w-3xl">
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="flex-1 py-3 text-center text-xs font-medium text-navy sm:text-sm"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </div>
-      </nav>
+      <TabBar />
     </div>
   );
 }

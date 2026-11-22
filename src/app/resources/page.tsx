@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { requireUser } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
 import { AppShell } from '@/components/AppShell';
+import { AthleticsLink } from '@/components/AthleticsLink';
 import { DIVISION_COLORS, DIVISION_LABELS, type Division } from '@/lib/types';
 
 export const dynamic = 'force-dynamic';
@@ -51,6 +52,21 @@ export default async function ResourcesPage() {
           </Link>
         )}
       </div>
+
+      <AthleticsLink className="mt-5 flex items-center gap-3 rounded-lg bg-navy px-4 py-3.5 text-white shadow-sm">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-red text-sm font-bold">
+          PA
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block font-semibold">PA Athletics</span>
+          <span className="block text-xs text-white/70">
+            Scores, schedules and rosters in the Ballfrog app
+          </span>
+        </span>
+        <span className="text-white/60" aria-hidden>
+          ↗
+        </span>
+      </AthleticsLink>
 
       {categories.map((category) => (
         <section key={category} className="mt-7">

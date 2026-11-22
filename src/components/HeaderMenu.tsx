@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { createClient } from '@/lib/supabase/client';
+import { AthleticsLink } from '@/components/AthleticsLink';
 
 // The header used to carry Search, Channels, Admin and Settings as four text
 // links. On a phone that wrapped into the wordmark. Channels moved to the tab
@@ -32,6 +34,13 @@ export function HeaderMenu({
       document.removeEventListener('keydown', onKey);
     };
   }, [open]);
+
+  // The only way a session ends. The app never signs anyone out on its own.
+  async function signOut() {
+    setOpen(false);
+    await createClient().auth.signOut();
+    window.location.href = '/sign-in';
+  }
 
   const initials =
     name
@@ -83,6 +92,21 @@ export function HeaderMenu({
               Admin
             </Link>
           )}
+          <AthleticsLink
+            onClick={() => setOpen(false)}
+            className="block px-3 py-2 text-sm text-navy hover:bg-gray-50"
+          >
+            PA Athletics ↗
+          </AthleticsLink>
+          <div className="my-1 border-t border-gray-100" />
+          <button
+            type="button"
+            role="menuitem"
+            onClick={signOut}
+            className="block w-full px-3 py-2 text-left text-sm text-red hover:bg-gray-50"
+          >
+            Sign out
+          </button>
         </div>
       )}
     </div>
