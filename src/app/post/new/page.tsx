@@ -14,6 +14,8 @@ export default async function NewPostPage() {
   const { data: memberships } = await supabase
     .from('memberships')
     .select('can_post, channels(id, name, slug, division, kind, sort_order)')
+    // Own rows only: administrators can read everyone's memberships.
+    .eq('user_id', user.id)
     .eq('can_post', true);
 
   type Row = Pick<

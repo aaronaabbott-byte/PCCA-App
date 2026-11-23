@@ -18,7 +18,11 @@ export default async function SettingsPage() {
   const [{ data: memberships }, { data: me }] = await Promise.all([
     supabase
       .from('memberships')
-      .select('channel_id, notify, channels(id, name, division, sort_order)'),
+      .select('channel_id, notify, channels(id, name, division, sort_order)')
+      // Only the reader's own rows. Row-level security lets administrators
+      // read every membership in the school, so without this filter an admin
+      // saw each feed once per admin.
+      .eq('user_id', user.id),
     supabase
       .from('users')
       .select('calendar_token')
