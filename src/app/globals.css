@@ -66,6 +66,10 @@ h3,
 .pad-safe-bottom {
   padding-bottom: env(safe-area-inset-bottom);
 }
+/* iOS already reserves the home-indicator strip; see INSET_SCRIPT in layout.tsx. */
+.ios-system-bottom .pad-safe-bottom {
+  padding-bottom: 0;
+}
 
 /* Tap targets on a phone should never be below 44px. */
 @media (pointer: coarse) {
