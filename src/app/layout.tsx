@@ -27,7 +27,16 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     title: 'Providence',
-    statusBarStyle: 'black-translucent',
+    // 'default', not 'black-translucent'. Since iOS 26.1, a home-screen app
+    // that draws under the status bar gets a system blur laid over the top
+    // of the page, which fogged the shield and the avatar. With 'default'
+    // iOS draws a solid status bar in the theme color (navy) and the page
+    // starts below it. env(safe-area-inset-top) becomes 0, so the header's
+    // top padding switches itself off.
+    //
+    // iOS reads this only when the app is added to the home screen: remove
+    // the icon and add it again to see the change.
+    statusBarStyle: 'default',
   },
   // This app is invite-only. Keep it out of search results.
   robots: { index: false, follow: false },
